@@ -5,6 +5,9 @@ RUN apt-get install -y \
         avrdude \
         usbutils \
         sudo \
+	binutils \
+	ca-certificates \
+	software-properties-common \
         wget \ 
         curl \
         unzip \
@@ -29,9 +32,15 @@ RUN apt-get install -y \
 	debconf-utils
 	
         
-RUN pip install --upgrade pip
-RUN pip install --upgrade setuptools
-RUN pip install --upgrade cffi
+
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+RUN add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable"
+RUN apt-get update
 RUN pip install google-api-python-client wheel cassandra-driver nose mock coverage
+RUN apt-get install -y docker-ce 
+RUN pip install docker-compose
 RUN apt-get clean
  
