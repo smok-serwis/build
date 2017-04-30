@@ -39,6 +39,8 @@ RUN add-apt-repository \
    $(lsb_release -cs) \
    stable"
 RUN apt-get update
+RUN pip install --upgrade pip
+RUN pip install --upgrade setuptools
 RUN pip install google-api-python-client wheel cassandra-driver nose mock coverage
 RUN apt-get install -y docker-ce 
 RUN pip install docker-compose
