@@ -18,6 +18,7 @@ RUN apt-get install -y \
         openssh-client \
         gettext \
         tar \
+        apt-transport-https \
         git \
 	libyaml-dev \
 	libffi-dev \	
