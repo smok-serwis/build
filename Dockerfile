@@ -3,7 +3,8 @@ RUN curl -sL https://deb.nodesource.com/setup_5.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install -g --unsafe-perm bower gulp cordova@6.5.0 karma
 
-RUN curl http://mail.dms-serwis.com.pl/jdk-8u121-linux-x64.tar.gz | tar -xz /usr/
+ADD http://mail.dms-serwis.com.pl/jdk-8u121-linux-x64.tar.gz /usr/
+RUN tar -xzf /usr/jdk-8u121-linux-x64.tar.gz; rm /usr/jdk-8u121-linux-x64.tar.gz
 RUN mkdir /usr/adk
 ADD http://mail.dms-serwis.com.pl/tools_r25.2.3-linux.zip /usr/adk/
 RUN cd /usr/adk; unzip tools_r25.2.3-linux.zip
