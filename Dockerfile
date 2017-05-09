@@ -5,6 +5,7 @@ RUN npm install -g --unsafe-perm bower gulp cordova@6.5.0 karma
 
 ADD http://mail.dms-serwis.com.pl/jdk-8u121-linux-x64.tar.gz /usr/
 RUN tar -xzf /usr/jdk-8u121-linux-x64.tar.gz; rm /usr/jdk-8u121-linux-x64.tar.gz
+RUN ls -la /usr/
 RUN mkdir /usr/adk
 ADD http://mail.dms-serwis.com.pl/tools_r25.2.3-linux.zip /usr/adk/
 RUN cd /usr/adk; unzip tools_r25.2.3-linux.zip
