@@ -1,6 +1,6 @@
 FROM smokserwis/build:latest
 RUN curl -sL https://deb.nodesource.com/setup_5.x | bash -
-RUN apt-get install -y nodejs
+RUN apt-get install -y nodejs fontconfig
 RUN npm install -g --unsafe-perm bower gulp cordova@6.5.0 karma
 
 ADD http://mail.dms-serwis.com.pl/jdk-8u121-linux-x64.tar.gz /usr/
