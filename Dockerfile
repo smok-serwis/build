@@ -29,7 +29,13 @@ RUN apt-get install -y \
  	libev4 \
 	libev-dev \
 	libpq-dev \
-	debconf-utils
+	debconf-utils \
+	postgresql-client \
+	setproctitle \
+	pint \
+	pytz \
+	gunicorn
+	
 	
         
 
