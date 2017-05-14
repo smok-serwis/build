@@ -30,7 +30,7 @@ RUN apt-get install -y \
 	libev-dev \
 	libpq-dev \
 	debconf-utils \
-	postgresql-client \
+	postgresql-client 
 
 	
 	
