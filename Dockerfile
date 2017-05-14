@@ -31,10 +31,7 @@ RUN apt-get install -y \
 	libpq-dev \
 	debconf-utils \
 	postgresql-client \
-	setproctitle \
-	pint \
-	pytz \
-	gunicorn
+
 	
 	
         
@@ -49,6 +46,9 @@ RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
 RUN pip install google-api-python-client wheel cassandra-driver nose mock coverage kazoo monotonic
 RUN apt-get install -y docker-ce 
-RUN pip install docker-compose
+RUN pip install docker-compose	setproctitle \
+	pint \
+	pytz \
+	gunicorn
 RUN apt-get clean
  
