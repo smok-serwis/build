@@ -1,6 +1,9 @@
-FROM debian:jessie
-RUN apt-get update
-RUN apt-get install -y \
+FROM debian:jessie-slim
+
+
+RUN mkdir -p /usr/share/man/man1 /usr/share/man/man7 && \
+    apt-get update && \ 
+    apt-get install -y \
         avr-libc \
         avrdude \
         usbutils \
@@ -31,25 +34,28 @@ RUN apt-get install -y \
 	libpq-dev \
 	debconf-utils \
 	postgresql-client \
-	sshpass
+	sshpass && \
+    apt-get clean && \
+    rm -rf /usr/share/man/*
 
-	
-	
-        
+RUN pip install --upgrade pip && \
+    pip install --upgrade setuptools && \
+    pip install google-api-python-client wheel cassandra-driver nose mock coverage kazoo monotonic && \
+    rm -rf /root/.cache /tmp/pip-*
 
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
-RUN add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/debian \
-   $(lsb_release -cs) \
-   stable"
-RUN apt-get update
-RUN pip install --upgrade pip
-RUN pip install --upgrade setuptools
-RUN pip install google-api-python-client wheel cassandra-driver nose mock coverage kazoo monotonic
-RUN apt-get install -y docker-ce 
-RUN pip install docker-compose	setproctitle \
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+    add-apt-repository \
+      "deb [arch=amd64] https://download.docker.com/linux/debian \
+      $(lsb_release -cs) \
+      stable" && \
+    apt-get update && \
+    apt-get install -y docker-ce && \
+    apt-get clean
+    
+RUN pip install docker-compose \ 
+        setproctitle \
 	pint \
 	pytz \
-	gunicorn
-RUN apt-get clean
+	gunicorn && \
+    rm -rf /root/.cache /tmp/pip-*
  
