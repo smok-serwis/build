@@ -1,5 +1,6 @@
 FROM debian:jessie-slim
 
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN mkdir -p /usr/share/man/man1 /usr/share/man/man7 && \
     apt-get update && \ 
