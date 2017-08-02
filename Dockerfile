@@ -3,7 +3,7 @@ RUN curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
     apt-get install -y libfontconfig nodejs zipalign && \
     apt-get clean
     
-RUN npm install -g --unsafe-perm bower gulp cordova@6.5.0 karma
+RUN npm install -g --unsafe-perm bower gulp cordova karma
 
 RUN wget http://mail.dms-serwis.com.pl/jdk-8u121-linux-x64.tar.gz && \
     mv jdk-8u121-linux-x64.tar.gz /usr/jdk-8u121-linux-x64.tar.gz && \
