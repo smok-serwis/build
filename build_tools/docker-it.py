@@ -21,7 +21,7 @@ def call(args, shell=False):
 
 if __name__ == '__main__':
 
-    PROJECT_NAME, IMG_REFERENCE, CONTEXT_BUILD = sys.argv[:3]
+    PROJECT_NAME, IMG_REFERENCE, CONTEXT_BUILD = sys.argv[1:4]
     extra_args_for_build = sys.argv[4:]
 
     TAG_BASED_REFERENCE = IMG_REFERENCE + ':' + BRANCH_NAME
