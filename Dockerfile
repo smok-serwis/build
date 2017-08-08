@@ -9,9 +9,9 @@ RUN mkdir -p /usr/share/man/man1 /usr/share/man/man7 && \
         avrdude \
         usbutils \
         sudo \
-	binutils \
-	ca-certificates \
-	software-properties-common \
+        binutils \
+        ca-certificates \
+        software-properties-common \
         wget \ 
         curl \
         unzip \
@@ -27,15 +27,15 @@ RUN mkdir -p /usr/share/man/man1 /usr/share/man/man7 && \
         tar \
         apt-transport-https \
         git \
-	libyaml-dev \
-	libffi-dev \	
-	apt-utils \
- 	libev4 \
-	libev-dev \
-	libpq-dev \
-	debconf-utils \
-	postgresql-client \
-	sshpass && \
+        libyaml-dev \
+        libffi-dev \
+        apt-utils \
+        libev4 \
+        libev-dev \
+        libpq-dev \
+        debconf-utils \
+        postgresql-client \
+        sshpass && \
     apt-get clean && \
     rm -rf /usr/share/man/*
 
@@ -54,9 +54,12 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
     apt-get clean
     
 RUN pip install docker-compose \ 
-        setproctitle \
+    setproctitle \
 	pint \
 	pytz \
 	gunicorn && \
     rm -rf /root/.cache /tmp/pip-*
  
+ADD build_tools/docker-it.py /usr/bin/docker-it
+
+RUN chmod ugo+x /usr/bin/docker-it
