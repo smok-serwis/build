@@ -67,8 +67,11 @@ It starts with '+dockerfile_lines[0]+' instead''')
 
     if not DO_NOT_PUSH:
         call(['docker', 'push', TAG_BASED_REFERENCE])
-        call('''docker images --digests "'''+IMG_REFERENCE+''''" | grep '''+BRANCH_NAME+''' | awk '{ print $1"@"$3; }' | tail -1 > '''+PROJECT_NAME+'''.digest''',
-             shell=True)
+        cmd = '''docker images --digests "'''+IMG_REFERENCE+''''" | grep '''+BRANCH_NAME+''' | awk '{ print $1"@"$3; }' | tail -1 > '''+PROJECT_NAME+'''.digest'''
+        os.stdout.write(cmd)
+        rc = os.system(cmd)
+        if rc != 0:
+            sys.exit(rc)
 
         with open(PROJECT_NAME+'.digest', 'rb') as fin:
             sys.stdout.write('Uploaded as \n'+fin.read()+'\n'+TAG_BASED_REFERENCE+'\n')
