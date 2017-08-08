@@ -38,19 +38,27 @@ if __name__ == '__main__':
         with open(dockerfile_name, 'rb') as fin_dockerfile:
             dockerfile = fin_dockerfile.read()
 
-            linesep = b'\r\n' if b'\r\n' in dockerfile else b'\n'
+        linesep = b'\r\n' if b'\r\n' in dockerfile else b'\n'
 
-            dockerfile_lines = dockerfile.split(linesep)
+        dockerfile_lines = dockerfile.split(linesep)
 
-            if not dockerfile_lines[0].startswith('FROM'):
-                sys.stderr.write('''First line of Dockerfile does not start with FROM.
+        if not dockerfile_lines[0].startswith('FROM'):
+            sys.stderr.write('''First line of Dockerfile does not start with FROM.
 It starts with '+dockerfile_lines[0]+' instead''')
-                sys.exit(1)
+            sys.exit(1)
 
-            elements = dockerfile_lines[0].split(':')
+        elements = dockerfile_lines[0].split(':')
 
-            sys.stdout.write('Altering Dockerfile %s tag %s -> %s' % \
-                             (dockerfile_name, elements[-1]))
+        sys.stdout.write('Altering Dockerfile %s tag %s -> %s' % \
+                         (dockerfile_name, elements[-1], BRANCH_NAME))
+
+        dockerfile_lines[0] = dockerfile_lines[0].replace(elements[-1], BRANCH_NAME)
+        dockerfile = linesep.join(dockerfile_lines)
+
+        with open(dockerfile_name, 'wb') as fout_dockerfile:
+            fout_dockerfile.write(dockerfile)
+        #debug
+        sys.stdout.write(dockerfile)
 
 
     call(['docker', 'build', '-t', TAG_BASED_REFERENCE] + \
