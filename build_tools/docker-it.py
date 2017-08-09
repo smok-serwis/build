@@ -60,7 +60,6 @@ It starts with '+dockerfile_lines[0]+' instead''')
         #debug
         sys.stdout.write(dockerfile)
 
-
     call(['docker', 'build', '-t', TAG_BASED_REFERENCE] + \
                     extra_args_for_build + \
                     [CONTEXT_BUILD])
@@ -68,7 +67,7 @@ It starts with '+dockerfile_lines[0]+' instead''')
     if not DO_NOT_PUSH:
         call(['docker', 'push', TAG_BASED_REFERENCE])
         cmd = '''docker images --digests "'''+IMG_REFERENCE+''''" | grep '''+BRANCH_NAME+''' | awk '{ print $1"@"$3; }' | tail -1 > '''+PROJECT_NAME+'''.digest'''
-        os.stdout.write(cmd)
+        sys.stdout.write(cmd)
         rc = os.system(cmd)
         if rc != 0:
             sys.exit(rc)
