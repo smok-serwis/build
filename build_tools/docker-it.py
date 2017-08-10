@@ -83,13 +83,20 @@ It starts with '+dockerfile_lines[0]+' instead''')
                     extra_args_for_build + \
                     [CONTEXT_BUILD], tap_stdout=True)
 
-    sys.stdout.write(repr(stdout))
-
     with open(PROJECT_NAME+'.digest', 'wb') as fout:
         fout.write(IMG_REFERENCE+'@'+stdout.split(os.linesep)[-1].split(' ')[2])
 
     if not DOCKERIT_NO_PUSH:
         call(['docker', 'push', TAG_BASED_REFERENCE])
-
-        with open(PROJECT_NAME+'.digest', 'rb') as fin:
-            sys.stdout.write('Uploaded as \n'+fin.read()+'\n'+TAG_BASED_REFERENCE+'\n')
+        cmd = '''docker images --digests "'''+IMG_REFERENCE+''''" | grep '''+BRANCH_NAME+''' | awk '{ print $1"@"$3; }'''
+        sys.stdout.write(cmd)
+        os.system(cmd)
+        #
+        # cmd = '''docker images --digests "'''+IMG_REFERENCE+''''" | grep '''+BRANCH_NAME+''' | awk '{ print $1"@"$3; }' | tail -1 > '''+PROJECT_NAME+'''.digest'''
+        # sys.stdout.write(cmd)
+        # rc = os.system(cmd)
+        # if rc != 0:
+        #     sys.exit(rc)
+        #
+        # with open(PROJECT_NAME+'.digest', 'rb') as fin:
+        #     sys.stdout.write('Uploaded as \n'+fin.read()+'\n'+TAG_BASED_REFERENCE+'\n')
