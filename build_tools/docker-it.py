@@ -6,17 +6,36 @@ import logging
 import os
 import sys
 import subprocess
+import tempfile
 
 
 DOCKERIT_NO_BRANCH = 'DOCKERIT_NO_BRANCH' in os.environ
-DO_NOT_PUSH = 'DOCKERIT_DONT_PUSH' in os.environ
+DOCKERIT_NO_PUSH = 'DOCKERIT_NO_PUSH' in os.environ
 BRANCH_NAME = os.environ['CI_COMMIT_REF_SLUG']  # This env is required
 
 
-def call(args, shell=False):
-    rc = subprocess.call(args, shell=shell)
+def call(args, shell=False, tap_stdout=False):
+
+    stdout = None
+
+    if tap_stdout:
+        x = open('stdout', 'a+')
+        x.seek(0, 0)
+        stdout = x.fileno()
+
+    rc = subprocess.call(args, shell=shell, stdout=stdout)
+
+    if tap_stdout:
+        x.seek(0, 0)
+        stdout = x.read()
+        x.close()
+    else:
+        stdout = ''
+
     if rc != 0:
         sys.exit(rc)
+
+    return stdout
 
 
 if __name__ == '__main__':
@@ -60,17 +79,17 @@ It starts with '+dockerfile_lines[0]+' instead''')
         #debug
         sys.stdout.write(dockerfile)
 
-    call(['docker', 'build', '-t', TAG_BASED_REFERENCE] + \
+    stdout = call(['docker', 'build', '-t', TAG_BASED_REFERENCE] + \
                     extra_args_for_build + \
-                    [CONTEXT_BUILD])
+                    [CONTEXT_BUILD], tap_stdout=True)
 
-    if not DO_NOT_PUSH:
+    sys.stdout.write(repr(stdout))
+
+    with open(PROJECT_NAME+'.digest', 'wb') as fout:
+        fout.write(IMG_REFERENCE+'@'+stdout.split(os.linesep)[-1].split(' ')[2])
+
+    if not DOCKERIT_NO_PUSH:
         call(['docker', 'push', TAG_BASED_REFERENCE])
-        cmd = '''docker images --digests "'''+IMG_REFERENCE+''''" | grep '''+BRANCH_NAME+''' | awk '{ print $1"@"$3; }' | tail -1 > '''+PROJECT_NAME+'''.digest'''
-        sys.stdout.write(cmd)
-        rc = os.system(cmd)
-        if rc != 0:
-            sys.exit(rc)
 
         with open(PROJECT_NAME+'.digest', 'rb') as fin:
             sys.stdout.write('Uploaded as \n'+fin.read()+'\n'+TAG_BASED_REFERENCE+'\n')
