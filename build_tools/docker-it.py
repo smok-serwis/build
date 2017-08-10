@@ -85,7 +85,7 @@ It starts with '+dockerfile_lines[0]+' instead''')
 
     if not DOCKERIT_NO_PUSH:
         out = call(['docker', 'push', TAG_BASED_REFERENCE], tap_stdout=True)
-
+        print(out)
         ALLREF = IMG_REFERENCE + '@' + out.split(os.linesep)[-2].split(' ')[2]
 
         with open(PROJECT_NAME+'.digest', 'wb') as fout:
