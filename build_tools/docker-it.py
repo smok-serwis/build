@@ -79,18 +79,15 @@ It starts with '+dockerfile_lines[0]+' instead''')
         #debug
         sys.stdout.write(dockerfile)
 
-    stdout = call(['docker', 'build', '-t', TAG_BASED_REFERENCE] + \
+    call(['docker', 'build', '-t', TAG_BASED_REFERENCE] + \
                     extra_args_for_build + \
-                    [CONTEXT_BUILD], tap_stdout=True)
-
-    with open(PROJECT_NAME+'.digest', 'wb') as fout:
-        fout.write(IMG_REFERENCE+'@'+stdout.split(os.linesep)[-1].split(' ')[2])
+                    [CONTEXT_BUILD])
 
     if not DOCKERIT_NO_PUSH:
         call(['docker', 'push', TAG_BASED_REFERENCE])
         cmd = '''docker images --digests "'''+IMG_REFERENCE+''''" | grep '''+BRANCH_NAME+''' | awk '{ print $1"@"$3; }'''
         sys.stdout.write(cmd)
-        os.system(cmd)
+        call(cmd, shell=True)
         #
         # cmd = '''docker images --digests "'''+IMG_REFERENCE+''''" | grep '''+BRANCH_NAME+''' | awk '{ print $1"@"$3; }' | tail -1 > '''+PROJECT_NAME+'''.digest'''
         # sys.stdout.write(cmd)
