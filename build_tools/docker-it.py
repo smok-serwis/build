@@ -87,6 +87,11 @@ It starts with '+dockerfile_lines[0]+' instead''')
         out = call(['docker', 'push', TAG_BASED_REFERENCE], tap_stdout=True)
 
         print(repr(out))
+
+        ALLREF = IMG_REFERENCE + '@' + out.split(os.linesep)[-2].split(' ')[2]
+
+        with open(PROJECT_NAME+'.digest', 'wb') as fout:
+            fout.write(ALLREF)
         #
         # cmd = '''docker images --digests "'''+IMG_REFERENCE+'''" | grep '''+BRANCH_NAME+''' | awk '{ print $1"@"$3; }' | tail -1 > '''+PROJECT_NAME+'''.digest'''
         # sys.stdout.write(cmd)
@@ -94,5 +99,4 @@ It starts with '+dockerfile_lines[0]+' instead''')
         # if rc != 0:
         #     sys.exit(rc)
         #
-        # with open(PROJECT_NAME+'.digest', 'rb') as fin:
         #     sys.stdout.write('Uploaded as \n'+fin.read()+'\n'+TAG_BASED_REFERENCE+'\n')
