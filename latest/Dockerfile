@@ -33,6 +33,6 @@ RUN clean-pip-install setproctitle \
 	gunicorn
  
 ADD docker-it.py /usr/bin/docker-it
-ADD check-jsons.py /usr/bin/check-jsons
-RUN chmod ugo+x /usr/bin/docker-it /usr/bin/check-jsons
+ADD check-syntax.py /usr/bin/check-syntax
+RUN chmod ugo+x /usr/bin/docker-it /usr/bin/check-syntax
 

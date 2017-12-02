@@ -16,7 +16,7 @@ All tags can be found [here](dockerfiles).
 ### Present in latest
 
 * [docker-it](latest/README.md) - makes sense only with how we use GitLab CI for images.
-* [check-jsons](latest/README.md) - verify that all .json files at given location are valid
+* [check-syntax](latest/README.md) - verify that all JSON and YAML files are valid.
  
 # Tags
 ## base
