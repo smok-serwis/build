@@ -1,15 +1,16 @@
 FROM smokserwis/build:docker-only
 
-RUN mkdir -p /usr/share/man/man1/ /usr/share/man/man7/ && \
-    clean-apt-install debconf-utils apt-utils \
+RUN clean-apt-install debconf-utils apt-utils \
         sudo \
         binutils \
-        wget \ 
+        wget \
         unzip \
         build-essential \
         gcc \
         make \
-        zip \
+        zip
+
+RUN clean-apt-install  \
         openssh-client \
         gettext \
         libyaml-dev \
@@ -34,5 +35,4 @@ RUN clean-pip-install setproctitle \
 	gunicorn
  
 ADD build_tools/docker-it.py /usr/bin/docker-it
-
 RUN chmod ugo+x /usr/bin/docker-it
