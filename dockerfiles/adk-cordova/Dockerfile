@@ -1,7 +1,6 @@
 FROM smokserwis/build:latest
 RUN curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
-    apt-get install -y libfontconfig nodejs zipalign && \
-    apt-get clean
+    clean-apt-install libfontconfig nodejs zipalign
 
 RUN wget https://services.gradle.org/distributions/gradle-4.0.2-bin.zip && \
     mkdir /opt/gradle && \

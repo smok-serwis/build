@@ -1,10 +1,6 @@
 FROM smokserwis/build:docker-only
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        avr-libc \
-        avrdude \
-        usbutils \
+RUN clean-apt-install debconf-utils apt-utils \
         sudo \
         binutils \
         wget \ 
@@ -21,22 +17,25 @@ RUN apt-get update && \
         libev4 \
         libev-dev \
         libpq-dev \
-        postgresql-client-9.6 \
 	    ccrypt \
-        sshpass && \
-    apt-get clean && \
-    rm -rf /usr/share/man/*
+        sshpass \
+        avr-libc \
+        avrdude \
+        postgresql-client-9.6 \
+        usbutils
 
 RUN pip install --upgrade pip && \
     pip install --upgrade setuptools && \
-    pip install google-api-python-client wheel cassandra-driver nose mock coverage kazoo monotonic && \
     rm -rf /root/.cache /tmp/pip-*
 
-RUN pip install setproctitle \
+RUN clean-pip-install cassandra-driver
+
+RUN clean-pip-install google-api-python-client wheel nose mock coverage kazoo monotonic
+
+RUN clean-pip-install setproctitle \
 	pint \
 	pytz \
-	gunicorn && \
-    rm -rf /root/.cache /tmp/pip-*
+	gunicorn
  
 ADD build_tools/docker-it.py /usr/bin/docker-it
 
