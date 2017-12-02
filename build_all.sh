@@ -7,10 +7,9 @@ function build_for {
     docker push "smokserwis/build:$1"
     cd ..
 }
-cd dockerfiles
 
 build_for base
-build_for latex &
+build_for latex
 build_for docker-only
 build_for latest
 build_for adk-cordova
