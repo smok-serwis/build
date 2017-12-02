@@ -8,8 +8,13 @@ All tags can be found [here](dockerfiles).
 
 ## Additional commands
 
+### Present in base
+
 * `clean-apt-install` - update apt cache, install given packages with -y, clean up
 * `clean-pip-install` - install given Python packages via pip, clean up
+
+### Present in latest
+
 * [docker-it](latest/README.md) - makes sense only with how we use GitLab CI for images.
 * [check-jsons](latest/README.md) - verify that all .json files at given location are valid
  
