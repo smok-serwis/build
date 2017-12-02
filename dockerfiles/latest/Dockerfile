@@ -4,11 +4,9 @@ RUN clean-apt-install debconf-utils apt-utils \
         sudo \
         binutils \
         wget \
-        unzip \
         build-essential \
         gcc \
-        make \
-        zip
+        make
 
 RUN clean-apt-install  \
         openssh-client \

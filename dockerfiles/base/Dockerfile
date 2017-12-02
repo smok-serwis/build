@@ -17,7 +17,7 @@ RUN clean-apt-install --no-install-recommends \
         python \
         git \
         tar \
-        zip \
+        zip unzip \
         python-setuptools \
         python-dev \
         python-pip
