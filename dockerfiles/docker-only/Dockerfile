@@ -7,6 +7,8 @@ RUN mkdir -p /usr/share/man/man1 /usr/share/man/man7 && \
     apt-get install -y --no-install-recommends \
         apt-transport-https \
         ca-certificates \
+        apt-utils \
+        debconf-utils \
         curl \
         gnupg2 \
         software-properties-common \

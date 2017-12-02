@@ -1,7 +1,7 @@
 FROM smokserwis/build:docker-only
 
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
         avr-libc \
         avrdude \
         usbutils \
@@ -13,16 +13,15 @@ RUN apt-get update && \
         python-dev \
         gcc \
         make \
+        zip \
         openssh-client \
         gettext \
         libyaml-dev \
         libffi-dev \
-        apt-utils \
         libev4 \
         libev-dev \
         libpq-dev \
-        debconf-utils \
-        postgresql-client \
+        postgresql-client-9.6 \
 	    ccrypt \
         sshpass && \
     apt-get clean && \
