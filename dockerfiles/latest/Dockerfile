@@ -6,7 +6,6 @@ RUN clean-apt-install debconf-utils apt-utils \
         wget \ 
         unzip \
         build-essential \
-        python-dev \
         gcc \
         make \
         zip \
@@ -23,10 +22,6 @@ RUN clean-apt-install debconf-utils apt-utils \
         avrdude \
         postgresql-client-9.6 \
         usbutils
-
-RUN pip install --upgrade pip && \
-    pip install --upgrade setuptools && \
-    rm -rf /root/.cache /tmp/pip-*
 
 RUN clean-pip-install cassandra-driver
 

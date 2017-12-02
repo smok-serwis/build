@@ -6,7 +6,6 @@ ADD clean_apt_install.sh /usr/bin/clean-apt-install
 ADD clean_pip_install.sh /usr/bin/clean-pip-install
 RUN chmod ugo+x /usr/bin/clean-apt-install /usr/bin/clean-pip-install
 
-
 RUN clean-apt-install --no-install-recommends \
         apt-transport-https \
         ca-certificates \
