@@ -28,3 +28,10 @@ It performs the common function of:
 * Build an image from given context and Dockerfile and tag it
 * Substitute 
 * Store entire SHA-1 reference to build image as target file
+
+## check-jsons
+
+It is an extra command to see if all (recursion will be applied) files ending
+with .json are indeed valid JSON. 
+
+It will return nonzero error code and point the culprit.

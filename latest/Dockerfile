@@ -32,5 +32,6 @@ RUN clean-pip-install setproctitle \
 	pytz \
 	gunicorn
  
-ADD build_tools/docker-it.py /usr/bin/docker-it
+ADD docker-it.py /usr/bin/docker-it
+ADD check-jsons.py /usr/bin/check-jsons
 RUN chmod ugo+x /usr/bin/docker-it
