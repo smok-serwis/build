@@ -2,10 +2,8 @@
 set -e
 
 function build_for {
-    cd $1
-    docker build -t "smokserwis/build:$1" .
+    docker build -t "smokserwis/build:$1" $1
     docker push "smokserwis/build:$1"
-    cd ..
 }
 
 build_for base
