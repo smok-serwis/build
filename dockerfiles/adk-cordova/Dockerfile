@@ -10,13 +10,8 @@ RUN wget https://services.gradle.org/distributions/gradle-4.0.2-bin.zip && \
 
 RUN npm install -g --unsafe-perm bower gulp cordova karma
 
-RUN wget http://mail.dms-serwis.com.pl/jdk-8u131-linux-x64.tar.gz && \
-    mv jdk-8u131-linux-x64.tar.gz /usr/jdk-8u131-linux-x64.tar.gz && \
-    cd /usr && \
-    tar -xvf jdk-8u131-linux-x64.tar.gz && \
-    rm jdk-8u131-linux-x64.tar.gz && \
-    ls -la /usr/ && \
-    mkdir /usr/adk
+ADD http://mail.dms-serwis.com.pl/jdk-8u131-linux-x64.tar.gz /usr
+RUN mkdir /usr/adk
 
 RUN update-alternatives --install /usr/bin/java java /usr/jdk1.8.0_131/bin/java 100 && \
     update-alternatives --install /usr/bin/javac javac /usr/jdk1.8.0_131/bin/javac 100 && \
