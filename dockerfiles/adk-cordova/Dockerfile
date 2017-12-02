@@ -1,4 +1,5 @@
 FROM smokserwis/build:latest
+
 RUN curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
     clean-apt-install libfontconfig nodejs zipalign
 

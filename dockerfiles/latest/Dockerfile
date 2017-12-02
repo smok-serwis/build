@@ -1,6 +1,7 @@
 FROM smokserwis/build:docker-only
 
-RUN clean-apt-install debconf-utils apt-utils \
+RUN mkdir -p /usr/share/man/man1/ /usr/share/man/man7/ && \
+    clean-apt-install debconf-utils apt-utils \
         sudo \
         binutils \
         wget \ 
