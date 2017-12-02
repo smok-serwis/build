@@ -32,6 +32,10 @@ docker-only + usual build tools
 
 latest + typical NodeJS 7 utils for websites
 
+## jdk8
+
+latest + JDK 8
+
 ## adk-cordova
 
-latest + Android toolkit + Cordova + NodeJS 5
+jdk8 + Android toolkit + Cordova + NodeJS 5

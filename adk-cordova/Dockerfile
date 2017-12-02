@@ -1,7 +1,7 @@
-FROM smokserwis/build:latest
+FROM smokserwis/build:jdk8
 
 RUN curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
-    clean-apt-install libfontconfig nodejs zipalign
+    clean-apt-install nodejs
 
 RUN wget https://services.gradle.org/distributions/gradle-4.0.2-bin.zip && \
     mkdir /opt/gradle && \
@@ -10,15 +10,8 @@ RUN wget https://services.gradle.org/distributions/gradle-4.0.2-bin.zip && \
 
 RUN npm install -g --unsafe-perm bower gulp cordova karma
 
-ADD http://mail.dms-serwis.com.pl/jdk-8u131-linux-x64.tar.gz /usr
-RUN mkdir /usr/adk
-
-RUN update-alternatives --install /usr/bin/java java /usr/jdk1.8.0_131/bin/java 100 && \
-    update-alternatives --install /usr/bin/javac javac /usr/jdk1.8.0_131/bin/javac 100 && \
-    update-alternatives --install /usr/bin/jar jar /usr/jdk1.8.0_131/bin/jar 100 && \
-    update-alternatives --install /usr/bin/jarsigner jarsigner /usr/jdk1.8.0_131/bin/jarsigner 100
-
-RUN cd /usr/adk && \
+RUN mkdir -p /usr/adk && \
+    cd /usr/adk && \
     wget http://mail.dms-serwis.com.pl/tools_r25.2.3-linux.zip && \
     unzip tools_r25.2.3-linux.zip && \
     rm tools_r25.2.3-linux.zip

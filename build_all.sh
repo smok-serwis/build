@@ -10,5 +10,6 @@ build_for base
 build_for latex
 build_for docker-only
 build_for latest
+build_for jdk8
 build_for adk-cordova
 build_for node7
