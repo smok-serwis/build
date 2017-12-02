@@ -2,6 +2,10 @@
 
 Basic Linux utilities and pip-ready Python 2.7
 
+## latex
+
+base + latex + pandoc
+
 ## docker-only
 
 base + has Docker and docker-compose

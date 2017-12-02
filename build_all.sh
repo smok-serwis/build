@@ -10,6 +10,7 @@ function build_for {
 cd dockerfiles
 
 build_for base
+build_for latex &
 build_for docker-only
 build_for latest
 build_for adk-cordova
