@@ -53,8 +53,8 @@ if __name__ == '__main__':
         f_index = extra_args_for_build.index('-f')
         dockerfile_name = extra_args_for_build[f_index+1]
         
-    if '--postfix-to-tag' in extra_args_for_build:
-        DOCKER_TAG_POSTFIX = extra_args_for_build[extra_args_for_build.index('--postfix-to-tag')+1]
+    if '--postfig' in extra_args_for_build:
+        DOCKER_TAG_POSTFIX = extra_args_for_build[extra_args_for_build.index('--postfix')+1]
 
     if not DOCKERIT_NO_BRANCH:
 
@@ -83,12 +83,12 @@ It starts with '+dockerfile_lines[0]+' instead''')
         #debug
         sys.stdout.write(dockerfile)
 
-    call(['docker', 'build', '-t', TAG_BASED_REFERENCE] + \
+    call(['docker', 'build', '-t', TAG_BASED_REFERENCE+DOCKER_TAG_POSTFIX] + \
                     extra_args_for_build + \
                     [CONTEXT_BUILD])
 
     if not DOCKERIT_NO_PUSH:
-        out = call(['docker', 'push', TAG_BASED_REFERENCE], tap_stdout=True)
+        out = call(['docker', 'push', TAG_BASED_REFERENCE+DOCKER_TAG_POSTFIX], tap_stdout=True)
         print(out)
         ALLREF = IMG_REFERENCE + '@' + out.split(os.linesep)[-2].split(' ')[2]
         print(ALLREF)
