@@ -53,7 +53,7 @@ if __name__ == '__main__':
         f_index = extra_args_for_build.index('-f')
         dockerfile_name = extra_args_for_build[f_index+1]
         
-    if '--postfig' in extra_args_for_build:
+    if '--postfix' in extra_args_for_build:
         DOCKER_TAG_POSTFIX = extra_args_for_build[extra_args_for_build.index('--postfix')+1]
 
     if not DOCKERIT_NO_BRANCH:
