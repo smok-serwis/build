@@ -42,6 +42,7 @@ if __name__ == '__main__':
 
     PROJECT_NAME, IMG_REFERENCE, CONTEXT_BUILD = sys.argv[1:4]
     extra_args_for_build = sys.argv[4:]
+    DOCKER_TAG_POSTFIX = ''
 
     TAG_BASED_REFERENCE = IMG_REFERENCE + ':' + BRANCH_NAME
 
@@ -51,6 +52,9 @@ if __name__ == '__main__':
     else:
         f_index = extra_args_for_build.index('-f')
         dockerfile_name = extra_args_for_build[f_index+1]
+        
+    if '--postfix-to-tag' in extra_args_for_build:
+        DOCKER_TAG_POSTFIX = extra_args_for_build[extra_args_for_build.index('--postfix-to-tag')+1]
 
     if not DOCKERIT_NO_BRANCH:
 
@@ -69,9 +73,9 @@ It starts with '+dockerfile_lines[0]+' instead''')
         elements = dockerfile_lines[0].split(':')
 
         sys.stdout.write('Altering Dockerfile %s tag %s -> %s' % \
-                         (dockerfile_name, elements[-1], BRANCH_NAME))
+                         (dockerfile_name, elements[-1], BRANCH_NAME+DOCKER_TAG_POSTFIX))
 
-        dockerfile_lines[0] = dockerfile_lines[0].replace(elements[-1], BRANCH_NAME)
+        dockerfile_lines[0] = dockerfile_lines[0].replace(elements[-1], BRANCH_NAME+DOCKER_TAG_POSTFIX)
         dockerfile = linesep.join(dockerfile_lines)
 
         with open(dockerfile_name, 'wb') as fout_dockerfile:
