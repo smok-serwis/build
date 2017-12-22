@@ -10,5 +10,5 @@ RUN curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - && \
     apt-get install -y nodejs && \
     apt-get clean
 
-RUN npm install -g bower gulp
+RUN npm install -g bower gulp gulp-cli
 RUN npm install -g wrench minimatch express connect
