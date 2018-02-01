@@ -70,12 +70,13 @@ if __name__ == '__main__':
 
         if not dockerfile_lines[0].startswith('FROM'):
             sys.stderr.write('''First line of Dockerfile does not start with FROM.
-It starts with '+dockerfile_lines[0]+' instead''')
+It starts with '+dockerfile_lines[0]+' instead
+''')
             sys.exit(1)
 
         elements = dockerfile_lines[0].split(':')
 
-        sys.stdout.write('Altering Dockerfile %s tag %s -> %s' % \
+        sys.stdout.write('Altering Dockerfile %s tag %s -> %s\n' % \
                          (dockerfile_name, elements[-1], BRANCH_NAME+DOCKER_TAG_POSTFIX))
 
         dockerfile_lines[0] = dockerfile_lines[0].replace(elements[-1], BRANCH_NAME+DOCKER_TAG_POSTFIX)
