@@ -7,5 +7,5 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
       stable" && \
     clean-apt-install --no-install-recommends docker-ce
 
-RUN clean-pip-install docker-compose>=1.12.0
+RUN clean-pip-install docker-compose>=1.19.0
 
