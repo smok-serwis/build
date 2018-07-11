@@ -13,3 +13,4 @@ build_for latest
 build_for jdk8
 build_for adk-cordova
 build_for node7
+build_for node10
