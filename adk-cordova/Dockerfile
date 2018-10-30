@@ -1,12 +1,12 @@
 FROM smokserwis/build:jdk8
 
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_11.x | bash - && \
     clean-apt-install nodejs
 
-RUN wget https://downloads.gradle.org/distributions/gradle-4.8-bin.zip && \
+RUN wget https://downloads.gradle.org/distributions/gradle-4.10.2-bin.zip && \
     mkdir /opt/gradle && \
-    unzip -d /opt/gradle gradle-4.8-bin.zip && \
-    update-alternatives --install /usr/bin/gradle gradle /opt/gradle/gradle-4.8/bin/gradle 100
+    unzip -d /opt/gradle gradle-4.10.2-bin.zip && \
+    update-alternatives --install /usr/bin/gradle gradle /opt/gradle/gradle-4.10.2/bin/gradle 100
 
 RUN npm install -g --unsafe-perm bower gulp karma
 
