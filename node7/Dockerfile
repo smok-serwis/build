@@ -7,8 +7,7 @@ ADD https://bitbucket.org/ariya/phantomjs/downloads/${PHANTOM_JS}.tar.bz2 /usr/l
 RUN ln -sf /usr/local/share/${PHANTOM_JS}/bin/phantomjs /usr/local/bin/phantomjs
 
 RUN curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - && \
-    apt-get install -y nodejs && \
-    apt-get clean
+    clean-apt-install nodejs
 
 RUN npm cache clean
 RUN npm install -g bower gulp gulp-cli
