@@ -31,8 +31,7 @@ RUN clean-pip-install setproctitle \
 	pint \
 	pytz \
 	gunicorn
- 
-ADD docker-it.py /usr/bin/docker-it
+
 ADD check-syntax.py /usr/bin/check-syntax
-RUN chmod ugo+x /usr/bin/docker-it /usr/bin/check-syntax
+RUN chmod ugo+x /usr/bin/check-syntax
 
