@@ -20,6 +20,7 @@ RUN clean-apt-install --no-install-recommends \
         zip unzip \
         python-setuptools \
         python-dev \
-        python-pip
+        python-pip \
+        gcc
 
 RUN clean-pip-install --upgrade pip setuptools wheel

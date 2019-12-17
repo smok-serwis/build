@@ -68,19 +68,18 @@ if __name__ == '__main__':
 
         dockerfile_lines = dockerfile.split(linesep)
 
-        if not dockerfile_lines[0].startswith('FROM'):
-            sys.stderr.write('''First line of Dockerfile does not start with FROM.
-It starts with '+dockerfile_lines[0]+' instead
-''')
-            sys.exit(1)
+        new_lines = []
+        for line in dockerfile_lines:
+            if line.startswith('FROM'):
+                elements = line.split(':')
 
-        elements = dockerfile_lines[0].split(':')
+                sys.stdout.write('Altering Dockerfile %s tag %s -> %s\n' % \
+                                 (dockerfile_name, elements[-1], BRANCH_NAME+DOCKER_TAG_POSTFIX))
 
-        sys.stdout.write('Altering Dockerfile %s tag %s -> %s\n' % \
-                         (dockerfile_name, elements[-1], BRANCH_NAME+DOCKER_TAG_POSTFIX))
+                line = line.replace(elements[-1], BRANCH_NAME+DOCKER_TAG_POSTFIX)
+            new_lines.append(line)
 
-        dockerfile_lines[0] = dockerfile_lines[0].replace(elements[-1], BRANCH_NAME+DOCKER_TAG_POSTFIX)
-        dockerfile = linesep.join(dockerfile_lines)
+        dockerfile = linesep.join(new_lines)
 
         with open(dockerfile_name, 'wb') as fout_dockerfile:
             fout_dockerfile.write(dockerfile)

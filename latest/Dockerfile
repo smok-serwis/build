@@ -30,7 +30,8 @@ RUN clean-pip-install google-api-python-client wheel nose mock coverage kazoo mo
 RUN clean-pip-install setproctitle \
 	pint \
 	pytz \
-	gunicorn
+	gunicorn \
+	grpcio-tools
 
 ADD check-syntax.py /usr/bin/check-syntax
 RUN chmod ugo+x /usr/bin/check-syntax
