@@ -25,7 +25,7 @@ It performs the common function of:
 
 * Assuming branch name
 
-* Build an image from given context and Dockerfile and tag it
+* Build an image from given context and Dockerfile and tag it with develop if it isn't `master` or `staging`
 * Substitute 
 * Store entire SHA-1 reference to build image as target file
 

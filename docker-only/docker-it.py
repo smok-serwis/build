@@ -7,12 +7,16 @@ import os
 import sys
 import subprocess
 import tempfile
+import re
 
 
 DOCKERIT_NO_BRANCH = 'DOCKERIT_NO_BRANCH' in os.environ
 DOCKERIT_NO_PUSH = 'DOCKERIT_NO_PUSH' in os.environ
+DOCKERIT_CLASSIC_BRANCH = 'DOCKERIT_CLASSIC_BRANCH' in os.environ
 BRANCH_NAME = os.environ['CI_COMMIT_REF_SLUG']  # This env is required
 
+
+from_line = re.compile(r'from (.*?):(.*?)( as .*)*')
 
 def call(args, shell=False, tap_stdout=False):
 
@@ -52,7 +56,7 @@ if __name__ == '__main__':
     else:
         f_index = extra_args_for_build.index('-f')
         dockerfile_name = extra_args_for_build[f_index+1]
-        
+
     if '--postfix' in extra_args_for_build:
         i = extra_args_for_build.index('--postfix')
         DOCKER_TAG_POSTFIX = extra_args_for_build[i+1]
@@ -68,23 +72,32 @@ if __name__ == '__main__':
 
         dockerfile_lines = dockerfile.split(linesep)
 
+        if not DOCKERIT_CLASSIC_BRANCH:
+            if BRANCH_NAME.lower() not in ('master', 'staging', 'develop'):
+                BRANCH_NAME = 'develop'
+
         new_lines = []
+        from_line_passed = False
         for line in dockerfile_lines:
-            if line.startswith('FROM'):
-                elements = line.split(':')
+            if line.lower().startswith('from') and not from_line_passed:
+                elem = line.split(':')[-1]
+                if 'as' in elem:
+                    elem = elem.split('as')[0].strip()
+                elif 'AS' in elem:
+                    elem = elem.split('AS')[0].strip()
+
+                from_line_passed = True
 
                 sys.stdout.write('Altering Dockerfile %s tag %s -> %s\n' % \
-                                 (dockerfile_name, elements[-1], BRANCH_NAME+DOCKER_TAG_POSTFIX))
+                                 (dockerfile_name, elem, BRANCH_NAME+DOCKER_TAG_POSTFIX))
 
-                line = line.replace(elements[-1], BRANCH_NAME+DOCKER_TAG_POSTFIX)
+                line = line.replace(elem, BRANCH_NAME+DOCKER_TAG_POSTFIX)
             new_lines.append(line)
 
         dockerfile = linesep.join(new_lines)
 
         with open(dockerfile_name, 'wb') as fout_dockerfile:
             fout_dockerfile.write(dockerfile)
-        #debug
-        sys.stdout.write(dockerfile)
 
     call(['docker', 'build', '-t', TAG_BASED_REFERENCE+DOCKER_TAG_POSTFIX] + \
                     extra_args_for_build + \
