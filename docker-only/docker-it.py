@@ -12,11 +12,14 @@ import re
 
 DOCKERIT_NO_BRANCH = 'DOCKERIT_NO_BRANCH' in os.environ
 DOCKERIT_NO_PUSH = 'DOCKERIT_NO_PUSH' in os.environ
+DOCKERIT_NO_REQUIREMENTS = 'DOCKERIT_NO_REQUIREMENTS' in os.environ
 DOCKERIT_CLASSIC_BRANCH = 'DOCKERIT_CLASSIC_BRANCH' in os.environ
 BRANCH_NAME = os.environ['CI_COMMIT_REF_SLUG']  # This env is required
 
 
 from_line = re.compile(r'from (.*?):(.*?)( as .*)*')
+requirements = re.compile(r'(.*?)git.dms-serwis.com.pl(.*?)@(develop)$')
+
 
 def call(args, shell=False, tap_stdout=False):
 
@@ -98,6 +101,22 @@ if __name__ == '__main__':
 
         with open(dockerfile_name, 'wb') as fout_dockerfile:
             fout_dockerfile.write(dockerfile)
+
+    if not DOCKERIT_NO_REQUIREMENTS:
+
+        if not DOCKERIT_CLASSIC_BRANCH:
+            if BRANCH_NAME.lower() not in ('master', 'staging', 'develop'):
+                BRANCH_NAME = 'develop'
+
+        new_lines = []
+        with open('requirements.txt', 'r') as f_in:
+            for line in f_in.readlines():
+                if requirements.match(line):
+                    line = line.replace('develop', BRANCH_NAME)
+                new_lines.append(line)
+
+        with open('requirements.txt', 'w') as f_out:
+            f_out.write('\n'.join(new_lines))
 
     call(['docker', 'build', '-t', TAG_BASED_REFERENCE+DOCKER_TAG_POSTFIX] + \
                     extra_args_for_build + \
