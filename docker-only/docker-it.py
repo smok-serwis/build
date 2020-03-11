@@ -108,15 +108,17 @@ if __name__ == '__main__':
             if BRANCH_NAME.lower() not in ('master', 'staging', 'develop'):
                 BRANCH_NAME = 'develop'
 
+        req_file_name = os.path.join(CONTEXT_BUILD, 'requirements.txt')
         new_lines = []
-        with open('requirements.txt', 'r') as f_in:
-            for line in f_in.readlines():
-                if requirements.match(line):
-                    line = line.replace('develop', BRANCH_NAME)
-                new_lines.append(line)
+        if os.path.exists(req_file_name):
+            with open(req_file_name, 'r') as f_in:
+                for line in f_in.readlines():
+                    if requirements.match(line):
+                        line = line.replace('develop', BRANCH_NAME)
+                    new_lines.append(line)
 
-        with open('requirements.txt', 'w') as f_out:
-            f_out.write('\n'.join(new_lines))
+            with open(req_file_name, 'w') as f_out:
+                f_out.write('\n'.join(new_lines))
 
     call(['docker', 'build', '-t', TAG_BASED_REFERENCE+DOCKER_TAG_POSTFIX] + \
                     extra_args_for_build + \
