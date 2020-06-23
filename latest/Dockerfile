@@ -22,16 +22,11 @@ RUN clean-apt-install  \
         avrdude \
         postgresql-client-9.6 \
         usbutils
-
-RUN clean-pip-install cassandra-driver
-
-RUN clean-pip-install google-api-python-client wheel nose mock coverage kazoo monotonic
-
-RUN clean-pip-install setproctitle \
-	pint \
-	pytz \
-	gunicorn \
-	grpcio-tools
+RUN clean-pip-install --upgrade pip
+RUN clean-pip-install cassandra-driver \
+        google-api-python-client wheel nose coverage kazoo monotonic \
+        setproctitle \
+    pint pytz gunicorn grpcio-tools nose2 coverage nose2[coverage_plugin]
 
 ADD check-syntax.py /usr/bin/check-syntax
 RUN chmod ugo+x /usr/bin/check-syntax
