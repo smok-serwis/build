@@ -1,12 +1,9 @@
 #!/usr/bin/python
 # coding=UTF-8
 from __future__ import print_function, absolute_import, division
-import six
-import logging
 import os
 import sys
 import subprocess
-import tempfile
 import re
 
 
