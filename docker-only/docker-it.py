@@ -51,6 +51,25 @@ if __name__ == '__main__':
     extra_args_for_build = sys.argv[4:]
     DOCKER_TAG_POSTFIX = ''
 
+    branch_name = os.environ.get('CI_COMMIT_REF_NAME')
+    if branch_name == 'master':
+        safe_branch = 'master'
+    else:
+        safe_branch = 'develop'
+
+    if '--sub-wheels-requirements' in extra_args_for_build:
+        extra_args_for_build.remove('--sub-wheels-requirements')
+        with open('wheels_requirements.json', 'r') as f_in:
+            data = f_in.read()
+        data.replace('develop', safe_branch)
+        with open('wheels_requirements.json', 'w') as f_out:
+            f_out.write(data)
+
+    extra_args_for_build.extend(['--build-arg',
+                                 'BRANCH="%s"' % (branch_name,),
+                                 '--build-arg',
+                                 'SAFE_BRANCH="%s"' % (safe_branch, )])
+
     TAG_BASED_REFERENCE = IMG_REFERENCE + ':' + BRANCH_NAME
 
     # Locate our Dockerfile!
