@@ -6,12 +6,12 @@ import sys
 import subprocess
 import re
 
-
-DOCKERIT_NO_BRANCH = 'DOCKERIT_NO_BRANCH' in os.environ
+DOCKERIT_NEW = 'DOCKERIT_NEW' in os.environ
+DOCKERIT_NO_BRANCH = 'DOCKERIT_NO_BRANCH' in os.environ or DOCKERIT_NEW
 DOCKERIT_NO_PUSH = 'DOCKERIT_NO_PUSH' in os.environ
 DOCKERIT_NO_REQUIREMENTS = 'DOCKERIT_NO_REQUIREMENTS' in os.environ
 DOCKERIT_CLASSIC_BRANCH = 'DOCKERIT_CLASSIC_BRANCH' in os.environ
-BRANCH_NAME = os.environ['CI_COMMIT_REF_SLUG']  # This env is required
+BRANCH_NAME = os.environ['CI_COMMIT_REF_NAME']  # This env is required
 
 
 from_line = re.compile(r'from (.*?):(.*?)( as .*)*')
@@ -48,11 +48,16 @@ if __name__ == '__main__':
     extra_args_for_build = sys.argv[4:]
     DOCKER_TAG_POSTFIX = ''
 
-    branch_name = os.environ.get('CI_COMMIT_REF_NAME')
-    if branch_name == 'master':
+    if BRANCH_NAME == 'master':
         safe_branch = 'master'
     else:
         safe_branch = 'develop'
+
+    if '-v' in extra_args_for_build:
+        extra_args_for_build.remove('-v')
+        VERBOSE = True
+    else:
+        VERBOSE = False
 
     if '--sub-wheels-requirements' in extra_args_for_build:
         extra_args_for_build.remove('--sub-wheels-requirements')
@@ -63,7 +68,7 @@ if __name__ == '__main__':
             f_out.write(data)
 
     extra_args_for_build.extend(['--build-arg',
-                                 'BRANCH="%s"' % (branch_name,),
+                                 'BRANCH="%s"' % (BRANCH_NAME,),
                                  '--build-arg',
                                  'SAFE_BRANCH="%s"' % (safe_branch, )])
 
@@ -136,9 +141,14 @@ if __name__ == '__main__':
             with open(req_file_name, 'w') as f_out:
                 f_out.write('\n'.join(new_lines))
 
-    call(['docker', 'build', '-t', TAG_BASED_REFERENCE+DOCKER_TAG_POSTFIX] + \
+    call_args = ['docker', 'build', '-t', TAG_BASED_REFERENCE+DOCKER_TAG_POSTFIX] + \
                     extra_args_for_build + \
-                    [CONTEXT_BUILD])
+                    [CONTEXT_BUILD]
+    if VERBOSE:
+        with open(dockerfile_name, 'r') as f_in:
+            print('Dockerfile is %s' % (f_in.read(), ))
+        print('Calling %s' % (call_args, ))
+    call(call_args)
 
     if not DOCKERIT_NO_PUSH:
         out = call(['docker', 'push', TAG_BASED_REFERENCE+DOCKER_TAG_POSTFIX], tap_stdout=True)

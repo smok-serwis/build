@@ -7,3 +7,10 @@ Note that docker-it is prepared to cooperate with GitLab CI
 Additionally, if you pass it --sub-wheels-requirements
 then it will find a file called wheels_requirements.json
 and replace every occurrence of "develop" with SAFE_BRANCH.
+
+Use the DOCKERIT_NEW flag if you're substituting FROM name from build 
+args, and don't want it subbed automatically.
+
+If you pass the -v flag, then both the command and resulting Dockerfile
+will be printed.
+
