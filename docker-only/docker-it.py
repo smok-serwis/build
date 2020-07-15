@@ -61,7 +61,7 @@ if __name__ == '__main__':
         extra_args_for_build.remove('--sub-wheels-requirements')
         with open('wheels_requirements.json', 'r') as f_in:
             data = f_in.read()
-        data.replace('develop', safe_branch)
+        data = data.replace('develop', safe_branch)
         with open('wheels_requirements.json', 'w') as f_out:
             f_out.write(data)
 
