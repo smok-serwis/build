@@ -7,6 +7,8 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
       stable" && \
     clean-apt-install --no-install-recommends docker-ce
 
+RUN clean-apt-install python-openssl libffi-dev
+
 RUN clean-pip-install docker-compose>=1.19.0
 ADD docker-it.py /usr/bin/docker-it
 ADD strip-docs.py /usr/bin/strip-docs
