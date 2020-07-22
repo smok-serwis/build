@@ -24,3 +24,6 @@ RUN clean-apt-install --no-install-recommends \
         gcc
 
 RUN clean-pip-install --upgrade pip setuptools wheel
+ADD strip-docs.py /usr/sbin/strip-docs
+
+RUN chmod ugo+x /usr/sbin/strip-docs
