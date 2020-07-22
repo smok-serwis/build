@@ -1,4 +1,4 @@
-FROM smokserwis/build:base
+FROM smokserwis/build:base-arm
 
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
     add-apt-repository \

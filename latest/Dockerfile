@@ -1,4 +1,4 @@
-FROM smokserwis/build:docker-only
+FROM smokserwis/build:docker-only-arm
 
 RUN clean-apt-install debconf-utils apt-utils \
         sudo \

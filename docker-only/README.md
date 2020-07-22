@@ -11,3 +11,10 @@ and replace every occurrence of "develop" with SAFE_BRANCH.
 If you pass the -v flag, then both the command and resulting Dockerfile
 will be printed.
 
+There's an additional command available, called strip-docs.
+Given a target directory it will find all .pyx, .py and .pyd files
+and strip them of comments and docstrings. Use it like this:
+
+```bash
+strip-docs .
+```
