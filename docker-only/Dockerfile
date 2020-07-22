@@ -10,6 +10,7 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
 RUN clean-pip-install docker-compose>=1.19.0
 ADD docker-it.py /usr/bin/docker-it
 ADD strip-docs.py /usr/bin/strip-docs
+ADD check-syntax.py /usr/bin/check-syntax
 
-RUN chmod ugo+x /usr/bin/docker-it /usr/bin/strip-docs
+RUN chmod ugo+x /usr/bin/check-syntax /usr/bin/docker-it /usr/bin/strip-docs
 

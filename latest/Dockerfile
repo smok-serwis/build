@@ -28,6 +28,4 @@ RUN clean-pip-install cassandra-driver \
         setproctitle \
     pint pytz gunicorn grpcio-tools nose2 coverage nose2[coverage_plugin]
 
-ADD check-syntax.py /usr/bin/check-syntax
-RUN chmod ugo+x /usr/bin/check-syntax
 
