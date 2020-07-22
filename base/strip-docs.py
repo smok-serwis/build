@@ -57,6 +57,7 @@ strip-docs <name of directory with py, pyx and pyd files>
 
     for rootdir, dirs, files in os.walk(sys.argv[1]):
         for file in files:
-            path = os.path.join(rootdir, file)
-            print('Doing %s' % (path, ))
-            do_file(path)
+            if file.endswith('.py') or file.endswith('.pyx') or file.endswith('.pyd'):
+                print('Doing %s' % (path, ))
+                path = os.path.join(rootdir, file)
+                do_file(path)
