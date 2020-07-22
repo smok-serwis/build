@@ -11,5 +11,5 @@ RUN clean-pip-install docker-compose>=1.19.0
 ADD docker-it.py /usr/bin/docker-it
 ADD strip-docs.py /usr/bin/strip-docs
 
-RUN chmod ugo+x /usr/bin/docker-it /usr/sbin/strip-docs
+RUN chmod ugo+x /usr/bin/docker-it /usr/bin/strip-docs
 
