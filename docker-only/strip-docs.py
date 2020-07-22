@@ -3,7 +3,7 @@
 """
 Strip comments and docstrings from a file.
 """
-
+import io
 import sys
 import token
 import tokenize
@@ -14,7 +14,8 @@ def do_file(fname):
     """ Run on just one file.
 
     """
-    with open(fname + ",strip", "w") as mod, open(fname, 'r') as source:
+    mod = io.BytesIO()
+    with open(fname, "r") as source:
 
         prev_toktype = token.INDENT
         first_line = None
@@ -45,6 +46,9 @@ def do_file(fname):
             last_col = ecol
             last_lineno = elineno
 
+    with open(fname, 'w') as f_out:
+        f_out.write(mod.getvalue())
+
 
 if __name__ == '__main__':
     if len(sys.argv) == 1:
@@ -57,6 +61,6 @@ strip-docs <name of directory with py, pyx and pyd files>
     for rootdir, dirs, files in os.walk(sys.argv[1]):
         for file in files:
             if file.endswith('.py') or file.endswith('.pyx') or file.endswith('.pyd'):
-                print('Doing %s' % (path, ))
                 path = os.path.join(rootdir, file)
+                print ('Doing %s' % (path, ))
                 do_file(path)
