@@ -2,15 +2,10 @@ FROM python:3.8
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-ADD clean-apt-install.sh /usr/bin/clean-apt-install
+ADD doctor-wheel.sh /usr/bin/doctor-wheel
 ADD clean-pip-install.sh /usr/bin/clean-pip-install
-RUN chmod ugo+x /usr/bin/clean-apt-install /usr/bin/clean-pip-install
+ADD strip-docs.py /usr/bin/strip-docs
+RUN chmod ugo+x /usr/bin/clean-pip-install /usr/bin/doctor-wheel /usr/bin/strip-docs
 
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-    add-apt-repository \
-      "deb [arch=amd64] https://download.docker.com/linux/debian \
-      $(lsb_release -cs) \
-      stable" && \
-    clean-apt-install --no-install-recommends docker-ce
+RUN clean-pip-install yapf satella snakehouse cython
 
-RUN clean-pip-install cython docker-compose>=1.19.0

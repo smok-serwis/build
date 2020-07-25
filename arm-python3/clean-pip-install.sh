@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
-pip install "$@"
+pip3 install "$@"
 rm -rf /root/.cache /tmp/pip-*
