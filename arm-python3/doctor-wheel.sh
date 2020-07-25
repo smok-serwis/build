@@ -2,6 +2,7 @@
 
 WHEEL_NAME=$(basename "$1")
 MY_DIR="$(cat /proc/sys/kernel/random/uuid)"
+mkdir "${MY_DIR}"
 mv "$1" "${MY_DIR}"
 cd "${MY_DIR}"
 unzip "$WHEEL_NAME"
