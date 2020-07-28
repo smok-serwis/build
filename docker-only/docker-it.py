@@ -11,7 +11,7 @@ DOCKERIT_NO_BRANCH = 'DOCKERIT_NO_BRANCH' in os.environ or DOCKERIT_NEW
 DOCKERIT_NO_PUSH = 'DOCKERIT_NO_PUSH' in os.environ
 DOCKERIT_NO_REQUIREMENTS = 'DOCKERIT_NO_REQUIREMENTS' in os.environ
 DOCKERIT_CLASSIC_BRANCH = 'DOCKERIT_CLASSIC_BRANCH' in os.environ
-BRANCH_NAME = os.environ['CI_COMMIT_REF_NAME']  # This env is required
+BRANCH_NAME = os.environ['CI_COMMIT_REF_SLUG']  # This env is required
 
 
 from_line = re.compile(r'from (.*?):(.*?)( as .*)*')

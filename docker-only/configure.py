@@ -12,35 +12,39 @@ When called as such
 
 It will rename all files containing ".staging." into "." and all files ending with .staging
 with "". It will delete files and directories for the other environment.
+Alternatively you can specify ".production." file name element to mark files which are
+used on the production environment.
 
 """
 from __future__ import print_function, absolute_import, division
 
 import codecs
 import json
-import os.path
 import logging
+import os.path
 import shutil
 import sys
 
 logger = logging.getLogger(__name__)
 
-
 if __name__ == '__main__':
 
     if sys.argv[1] in ('master', 'production'):
         sys.argv[1] = 'production'
+        good_ending = '.production.'
+        bad_ending = '.staging.'
         print('*********** CONFIGURING FOR PRODUCTION ************')
     else:
         print('******** CONFIGURING FOR STAGING INSTEAD **********')
         sys.argv[1] = 'staging'
+        good_ending = '.staging.'
+        bad_ending = '.production.'
 
     ALL_POSSIBLE_ENDINGS = ['.production.', '.staging.']
-    good_ending = '.' + sys.argv[1] + '.'
     ALL_POSSIBLE_ENDINGS.remove(good_ending)
-    bad_ending, = ALL_POSSIBLE_ENDINGS
     good_ending_trim = good_ending[:-1]
     bad_ending_trim = bad_ending[:-1]
+
 
     def process_good_ending(root_x, file_x, ending, replace_with):
         r_f = os.path.join(root_x, file_x)
@@ -48,12 +52,14 @@ if __name__ == '__main__':
         logger.warning('Renaming %s to %s', r_f, r_t)
         os.rename(r_f, r_t)
 
+
     def process_bad_ending(root_x, file_x):
         path = os.path.join(root_x, file_x)
         if os.path.isdir(path):
             shutil.rmtree(path)
         else:
             os.unlink(path)
+
 
     for root, dirs, files in os.walk('.'):
         for file in files + dirs:
@@ -66,9 +72,18 @@ if __name__ == '__main__':
             elif file.endswith(bad_ending_trim):
                 process_bad_ending(root, file)
 
-    servers = map(lambda q: q.strip(),
-                  [q.decode('utf8') for q in open('server_list.txt', 'r').readlines() if len(q.strip()) > 0])
-    templates = dict((fn, open(os.path.join('templates', fn), 'rb').read()) for fn in os.listdir('templates'))
+    if os.path.exists('server_list.txt'):
+        servers = map(lambda q: q.strip(),
+                      [q.decode('utf8') for q in open('server_list.txt', 'r').readlines() if
+                       len(q.strip()) > 0])
+    else:
+        servers = []
+
+    if os.path.exists('templates'):
+        templates = dict((fn, open(os.path.join('templates', fn), 'rb').read()) for fn in
+                         os.listdir('templates'))
+    else:
+        templates = {}
 
     for k in templates.keys()[:]:
         if k.endswith('.json'):
