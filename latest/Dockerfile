@@ -20,8 +20,10 @@ RUN clean-apt-install  \
         sshpass \
         avr-libc \
         avrdude \
-        postgresql-client-9.6 \
-        usbutils
+        postgresql-client-11 \
+        usbutils \
+        cmake
+
 RUN clean-pip-install --upgrade pip
 RUN clean-pip-install cassandra-driver \
         google-api-python-client wheel nose coverage kazoo monotonic \
