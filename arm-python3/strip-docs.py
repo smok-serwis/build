@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 """
 Strip comments and docstrings from a file.
 """
@@ -9,7 +9,7 @@ import tokenize
 import os
 
 
-def do_file(fname: str) -> None:
+def do_file(fname):
     """ Run on just one file.
 
     """
