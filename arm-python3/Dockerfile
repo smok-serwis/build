@@ -1,4 +1,4 @@
-FROM python:3.8-buster
+FROM python:3.8
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -22,3 +22,4 @@ RUN clean-pip-install https://mail.dms-serwis.com.pl/rapid/cffi-1.14.1-cp38-cp38
     clean-pip-install cython satella snakehouse>=1.2.3 auditwheel doctor-wheel twine
 
 ENTRYPOINT ["/bin/bash"]
+CMD ["bash"]
