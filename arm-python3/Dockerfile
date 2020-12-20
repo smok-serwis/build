@@ -4,9 +4,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ADD clean-apt-install.sh /usr/bin/clean-apt-install
 ADD clean-pip-install.sh /usr/bin/clean-pip-install
-ADD strip-docs.py /usr/bin/strip-docs
 
-RUN chmod ugo+x /usr/bin/clean-apt-install /usr/bin/clean-pip-install /usr/bin/strip-docs
+RUN chmod ugo+x /usr/bin/clean-apt-install /usr/bin/clean-pip-install
 
 RUN clean-apt-install lsb-release software-properties-common && \
     curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
@@ -19,6 +18,6 @@ RUN clean-apt-install lsb-release software-properties-common && \
 RUN clean-pip-install https://mail.dms-serwis.com.pl/rapid/cffi-1.14.1-cp38-cp38-linux_armv7l.whl && \
     clean-pip-install https://mail.dms-serwis.com.pl/rapid/ujson-3.2.0-cp38-cp38-linux_armv7l.whl && \
     clean-pip-install https://mail.dms-serwis.com.pl/rapid/cryptography-3.2.1-cp38-cp38-linux_armv7l.whl && \
-    clean-pip-install cython satella snakehouse>=1.3 auditwheel doctor-wheel twine
+    clean-pip-install cython satella snakehouse>=1.3 auditwheel doctor-wheel twine strip-docs
 
 CMD ["bash"]

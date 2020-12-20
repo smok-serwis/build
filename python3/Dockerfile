@@ -4,6 +4,6 @@ RUN apt-get update && \
     apt-get install -y patchelf zip && \
     apt-get clean
 
-RUN pip install snakehouse>=1.3 satella twine auditwheel doctor-wheel sphinx grpcio-tools yapf
+RUN pip install snakehouse>=1.3 satella twine auditwheel strip-docs doctor-wheel sphinx grpcio-tools yapf
 
 CMD ["bash"]
