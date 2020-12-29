@@ -20,4 +20,6 @@ RUN clean-pip-install https://mail.dms-serwis.com.pl/rapid/cffi-1.14.1-cp38-cp38
     clean-pip-install https://mail.dms-serwis.com.pl/rapid/cryptography-3.2.1-cp38-cp38-linux_armv7l.whl && \
     clean-pip-install cython satella snakehouse>=1.3 auditwheel doctor-wheel twine strip-docs
 
+RUN clean-pip-install --upgrade satella>=2.14.31
+
 CMD ["bash"]
