@@ -46,3 +46,11 @@ latest + JDK 8
 ## adk-cordova
 
 jdk8 + Android toolkit + Cordova + NodeJS 5
+
+## python9
+
+Python 3.9 on x86_64 with Satella, Sphinx, Snakehouse and the wheel toolkit
+
+## arm-python9
+
+Python 3.9 on armv7l with Satella, Sphinx, Snakehouse and the wheel toolkit
