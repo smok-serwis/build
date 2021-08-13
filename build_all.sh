@@ -20,5 +20,6 @@ build_for node10
 build_for python9
 docker buildx build -t smokserwis/build:arm-python3  --platform linux/arm/v7 --progress plain arm-python3
 docker buildx build -t smokserwis/build:arm-python9  --platform linux/arm/v7 --progress plain arm-python9
+docker buildx build -t smokserwis/build:aarch64  --platform linux/arm64 --progress plain aarch64
 docker buildx use default
 docker buildx rm builder
