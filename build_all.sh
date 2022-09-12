@@ -17,6 +17,7 @@ build_for jdk8
 build_for adk-cordova
 build_for node7
 build_for node10
+build_for node18
 build_for python9
 docker buildx build -t smokserwis/build:arm-python3  --platform linux/arm/v7 --progress plain arm-python3
 docker buildx build -t smokserwis/build:arm-python9  --platform linux/arm/v7 --progress plain arm-python9
