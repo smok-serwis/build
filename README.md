@@ -1,7 +1,7 @@
 Build repository for [smokserwis/build](https://hub.docker.com/r/smokserwis/build/)
 
 This contains the  tool. Please read how it works
-if you use [smokserwis/build](https://hub.docker.com/r/smokserwis/build/)+GitLab CI for 
+if you use [smokserwis/build](https://hub.docker.com/r/smokserwis/build/)+GitLab CI for
 building Docker images.
 
 All tags can be found [here](dockerfiles).
@@ -17,7 +17,7 @@ All tags can be found [here](dockerfiles).
 
 * [docker-it](latest/README.md) - makes sense only with how we use GitLab CI for images.
 * [check-syntax](latest/README.md) - verify that all JSON and YAML files are valid.
- 
+
 # Tags
 ## base
 
@@ -38,6 +38,10 @@ docker-only + usual build tools
 ## node7
 
 latest + typical NodeJS 7 utils for websites
+
+## node18
+
+latest + typical NodeJS 18 for smok.co
 
 ## jdk8
 
