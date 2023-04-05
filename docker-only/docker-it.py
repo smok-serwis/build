@@ -59,8 +59,6 @@ if __name__ == '__main__':
     else:
         VERBOSE = False
 
-    ALLOW_CLOUD_BUILDS = '--allow-cloud-versions' in extra_args_for_build
-
     if '--sub-wheels-requirements' in extra_args_for_build:
         extra_args_for_build.remove('--sub-wheels-requirements')
         with open('wheels_requirements.json', 'r') as f_in:
