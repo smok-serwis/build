@@ -26,20 +26,23 @@ import shutil
 import sys
 
 logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.DEBUG)
+
+print(sys.argv)
 
 if __name__ == '__main__':
 
     bad_endings = ['.production.', '.staging.', '.cloud.']
-    print('Calling the build with %s' % (sys.argv, ))
+    logger.warning('Calling the build with %s', sys.argv)
     if sys.argv[1] in ('master', 'production'):
         sys.argv[1] = 'production'
         good_ending = '.production.'
-        print('*********** CONFIGURING FOR PRODUCTION ************')
+        logger.warning('*********** CONFIGURING FOR PRODUCTION ************')
     elif sys.argv[1] == 'cloud':
-        print('******** CONFIGURING FOR CLOUD INSTEAD **********')
+        logger.warning('******** CONFIGURING FOR CLOUD INSTEAD **********')
         good_ending = '.cloud.'
     elif sys.argv[1] in ('devel', 'develop', 'staging', 'development'):
-        print('******** CONFIGURING FOR STAGING INSTEAD **********')
+        logger.warning('******** CONFIGURING FOR STAGING INSTEAD **********')
         sys.argv[1] = 'staging'
         good_ending = '.staging.'
 
