@@ -48,7 +48,7 @@ if __name__ == '__main__':
     extra_args_for_build = sys.argv[4:]
     DOCKER_TAG_POSTFIX = ''
 
-    if BRANCH_NAME == 'master':
+    if BRANCH_NAME in ('master', 'production', 'cloud'):
         safe_branch = 'master'
     else:
         safe_branch = 'develop'
@@ -126,7 +126,7 @@ if __name__ == '__main__':
     if not DOCKERIT_NO_REQUIREMENTS:
 
         if not DOCKERIT_CLASSIC_BRANCH:
-            if BRANCH_NAME.lower() not in ('master', 'staging', 'develop'):
+            if BRANCH_NAME.lower() not in ('master', 'staging', 'develop', 'cloud'):
                 BRANCH_NAME = 'develop'
 
         req_file_name = os.path.join(CONTEXT_BUILD, 'requirements.txt')
