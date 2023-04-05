@@ -50,7 +50,7 @@ if __name__ == '__main__':
 
     if BRANCH_NAME in ('master', 'production', 'cloud'):
         safe_branch = 'master'
-    else:
+    elif BRANCH_NAME in ('devel', 'develop', 'development'):
         safe_branch = 'develop'
 
     if '-v' in extra_args_for_build:
