@@ -10,6 +10,8 @@ Additionally, if you pass it --sub-wheels-requirements
 then it will find a file called wheels_requirements.json
 and replace every occurrence of "develop" with SAFE_BRANCH.
 
+Also pass --allow-cloud-versions to allow images with tags of :cloud to be output.
+
 If you pass the -v flag, then both the command and resulting Dockerfile
 will be printed.
 
