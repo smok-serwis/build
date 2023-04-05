@@ -35,14 +35,15 @@ if __name__ == '__main__':
         sys.argv[1] = 'production'
         good_ending = '.production.'
         print('*********** CONFIGURING FOR PRODUCTION ************')
-    elif sys.argv[1] in ('devel', 'develop', 'staging', 'development'):
-        print('******** CONFIGURING FOR STAGING INSTEAD **********')
-        sys.argv[1] = 'staging'
-        good_ending = '.staging.'
     elif sys.argv[1] == 'cloud':
         print('******** CONFIGURING FOR CLOUD INSTEAD **********')
         sys.argv[1] = 'cloud'
         good_ending = '.cloud.'
+    elif sys.argv[1] in ('devel', 'develop', 'staging', 'development'):
+        print('******** CONFIGURING FOR STAGING INSTEAD **********')
+        sys.argv[1] = 'staging'
+        good_ending = '.staging.'
+
     bad_endings.remove(good_ending)
 
     good_ending_trim = good_ending[:-1]
