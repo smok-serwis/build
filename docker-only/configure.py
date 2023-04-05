@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 if __name__ == '__main__':
 
     bad_endings = ['.production.', '.staging.', '.cloud.']
-    if sys.argv[1] in ('master', 'production', 'cloud'):
+    if sys.argv[1] in ('master', 'production'):
         sys.argv[1] = 'production'
         good_ending = '.production.'
         print('*********** CONFIGURING FOR PRODUCTION ************')
