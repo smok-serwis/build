@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 if __name__ == '__main__':
 
     bad_endings = ['.production.', '.staging.', '.cloud.']
-    print('Calling the build with', sys.argv[1])
+    logger.warning('Calling the build with %s', sys.argv[1])
     if sys.argv[1] in ('master', 'production'):
         sys.argv[1] = 'production'
         good_ending = '.production.'
