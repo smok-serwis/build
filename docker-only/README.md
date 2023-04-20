@@ -1,3 +1,6 @@
+docker-it
+=========
+
 docker-it will additionally pass some build args:
 
 - SAFE_BRANCH: either "develop" or "master", depending on which branch it is being built
@@ -15,3 +18,14 @@ Also pass --postfix to postfix the result image with any tag
 If you pass the -v flag, then both the command and resulting Dockerfile
 will be printed.
 
+strip-docs
+==========
+
+Note that strip-docs does "stupid strips", so if you use docstrings instead of a pass as a placeholder, you might
+end up with stripped class looking like:
+
+```python
+class ImUsingDocstrings(AnotherClass):
+```
+
+Which is a `SyntaxError` in Python. So take care to put at least one pass or a ... in lieu of a placeholder.
