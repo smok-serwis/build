@@ -52,6 +52,8 @@ if __name__ == '__main__':
         safe_branch = 'master'
     elif BRANCH_NAME in ('devel', 'develop', 'development'):
         safe_branch = 'develop'
+    else:
+        safe_branch = 'develop'
 
     if '-v' in extra_args_for_build:
         extra_args_for_build.remove('-v')
